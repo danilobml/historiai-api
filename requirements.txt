@@ -1,0 +1,10 @@
+flask
+python_dotenv
+langchain
+pytesseract
+huggingface_hub
+openai
+opencv-python
+# chromadb
+# tiktoken
+

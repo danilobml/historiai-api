@@ -1,0 +1,26 @@
+# Virtual environment
+venv/
+
+# Byte-compiled / optimized Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment variables file (if using .env for sensitive information)
+.env
+
+# IDE files (can vary based on your IDE)
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Other generated files or folders
+instance/
+*.db
+*.sqlite3
+
+# mock data
+data/

@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, render_template
-# from llms.llama2_controller import send_prompt_to_llama2_70
 from ocr.tesseract import extract_text_from_image, allowed_file
-from llms.openai_controller import generate_summary, get_text_analysis
+from llms.openai_controller import (generate_summary, get_text_analysis,
+                                    get_text_locations)
 import sys
 __import__('pysqlite3')
 
@@ -37,6 +37,21 @@ def post_image_to_analysis():
     if file and allowed_file(file.filename):
         text = extract_text_from_image(file)
         result = get_text_analysis(text_input=text, question=question)
+        return jsonify(result), 200
+    elif not file:
+        return jsonify({"Error": "No file uploaded."}), 400
+    else:
+        return jsonify({"Error": "File type not allowed."}), 400
+
+
+@app.route('/locate', methods=['POST'])
+def post_image_to_locate_parts():
+    file = request.files['photo']
+    pattern = request.form['pattern']
+
+    if file and allowed_file(file.filename):
+        text = extract_text_from_image(file)
+        result = get_text_locations(text_input=text, pattern=pattern)
         return jsonify(result), 200
     elif not file:
         return jsonify({"Error": "No file uploaded."}), 400

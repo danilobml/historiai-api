@@ -1,22 +1,18 @@
-from flask import Flask, request, jsonify
-# from llms.llama2_70 import send_prompt_to_llama2_70
+from flask import Flask, request, jsonify, render_template
+# from llms.llama2_controller import send_prompt_to_llama2_70
 from ocr.tesseract import extract_text_from_image, allowed_file
-from llms.openai_funcs import generate_summary, get_text_analysis
+from llms.openai_controller import generate_summary, get_text_analysis
+import sys
+__import__('pysqlite3')
 
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def home():
-    return """
-        Welcome to the HistoriAI (demo) API! n\
-
-        Available endpoints: n\
-
-        - /summarize : receives an image file, runs ocr and returns
-        a summarization from the LLM.
-    """
+    return render_template('api_list.html')
 
 
 @app.route('/summarize', methods=['POST'])

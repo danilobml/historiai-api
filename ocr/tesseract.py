@@ -4,6 +4,8 @@ import numpy as np
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
+# TODO - Check using tesseract api: https://pypi.org/project/tess-py-api/
+
 
 def allowed_file(filename):
     return '.' in filename and \

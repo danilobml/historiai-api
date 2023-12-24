@@ -5,6 +5,6 @@ pytesseract
 huggingface_hub
 openai
 opencv-python
-# chromadb
-# tiktoken
-
+chromadb
+tiktoken
+pysqlite3-binary

@@ -44,10 +44,11 @@ def get_text_analysis(text_input, question):
     docs = get_text_chunks_as_docs_recursive(text_input)
     embeddings = OpenAIEmbeddings()
     persist_directory = 'docs/chroma/'
-    store = Chroma(persist_directory=persist_directory,
-                   embedding_function=embeddings)
+    store = Chroma.from_documents(persist_directory=persist_directory,
+                                  embedding=embeddings,
+                                  documents=docs)
     llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
     qa_chain = RetrievalQA.from_chain_type(llm,
                                            retriever=store.as_retriever())
-    result = qa_chain({"inputs": docs, "query": question})
-    print(result)
+    result = qa_chain.run({"query": question})
+    return result
